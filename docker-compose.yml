@@ -6,52 +6,52 @@ services:
     image: mongo:4
     command: --quiet
     networks:
-      - xstack
+      - travels
 
   api:
     build:
       context: ./api
       dockerfile: Dockerfile
-    image: ghcr.io/timboslicecreative/xstack/api
+    image: ghcr.io/timboslicecreative/travels/api
     ports:
       - 1337:1337
     depends_on:
       - db
     networks:
-      - xstack
+      - travels
 
   thumbor:
     image: apsl/thumbor:latest
     networks:
-      - xstack
+      - travels
 
   nginx:
     build:
       context: ./nginx
       dockerfile: Dockerfile
-    image: ghcr.io/timboslicecreative/xstack/nginx
+    image: ghcr.io/timboslicecreative/travels/nginx
     depends_on:
       - thumbor
     ports:
       - 3001:80
     networks:
-      - xstack
+      - travels
 
   web:
     build:
       context: ./web
       dockerfile: Dockerfile
-    image: ghcr.io/timboslicecreative/xstack/web
+    image: ghcr.io/timboslicecreative/travels/web
     ports:
       - 3000:3000
     depends_on:
       - api
       - nginx
     networks:
-      - xstack
+      - travels
 
 networks:
-  xstack:
+  travels:
     driver: bridge
 
 volumes:

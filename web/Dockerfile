@@ -1,4 +1,4 @@
-FROM node:12
+FROM node:slim
 ENV NODE_ENV production
 
 WORKDIR /usr/src/app
