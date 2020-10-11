@@ -1,0 +1,95 @@
+.photo {
+    padding: 80px 80px 120px 80px;
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.backLink {
+    position: absolute;
+    z-index: 1;
+    top: -40px;
+    left: 0;
+    width: 100%;
+    max-width: var(--section-max-width);
+    text-align: left;
+}
+
+.backLink a {
+    text-transform: uppercase;
+    color: #FFF;
+    font-size: 20px;
+    line-height: 24px;
+    text-decoration: none;
+    margin-left: -30px;
+}
+
+.backLink a svg {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 4px;
+}
+
+.picture {
+    display: block;
+}
+
+.picture img {
+    height: 75vh;
+    width: auto;
+}
+
+.photoInner {
+    position: relative;
+    display: inline-block;
+    width: auto;
+}
+
+.portrait {
+}
+
+.landscape {
+}
+
+.panorama {
+    position: relative;
+    width: 100%;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.panorama picture {
+
+}
+
+.panorama img {
+    height: auto;
+    width: 100%;
+}
+
+.navigation {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.navigation a {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 24px;
+}
+
+.navigation a {
+    padding: 13px;
+}
+
+.caption {
+    color: #DDDDDD;
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 20px;
+    margin: 0;
+}

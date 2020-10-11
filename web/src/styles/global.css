@@ -1,0 +1,23 @@
+:root {
+    --color-background-default: #1D1D1D;
+    --color-text-default: #7E7E7E
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    color: var(--color-text-default);
+    background-color: var(--color-background-default)
+}
+
+main {}
+
+.backLink {
+    line-height: 24px;
+}
+
+.backLink svg {
+    display: inline-block;
+    vertical-align: middle;
+}

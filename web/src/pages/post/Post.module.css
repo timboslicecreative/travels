@@ -1,0 +1,149 @@
+.post {
+    box-sizing: border-box;
+    color: #fff;
+}
+
+.post nav,
+.post section,
+.post header h1,
+.backLink {
+    box-sizing: border-box;
+    max-width: var(--section-max-width);
+    padding: var(--section-padding);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.header picture {
+    width: 100%;
+    height: 500px;
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+
+.header img {
+    width: auto;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,0);
+    opacity: var(--image-opacity);
+}
+
+.header h1 {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translate(-50%,0);
+    width: 100%;
+    margin: 0;
+    font-size: 68px;
+    line-height: 68px;
+    font-weight: normal;
+    text-shadow: var(--heading-shadow);
+}
+
+.backLink {
+    position: absolute;
+    z-index: 1;
+    top: 40px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 100%;
+}
+.backLink a {
+    text-transform: uppercase;
+    color: #FFF;
+    font-size: 24px;
+    line-height: 24px;
+    text-decoration: none;
+    margin-left: -40px;
+}
+
+.backLink a svg {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 14px;
+}
+
+.introduction {
+    margin-bottom: 20px;
+}
+
+.introduction p {
+    font-size: 38px;
+    font-weight: 300;
+    line-height: 48px;
+}
+
+.navigation {
+    margin-bottom: 80px;
+}
+
+.navigation a {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 20px;
+    color: #1466D2;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 24px;
+    text-decoration: none;
+}
+
+.navigation a svg {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.content {
+    margin-bottom: 80px;
+    color: #DBDBDB;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 36px;
+}
+
+.post section h2 {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 20px;
+    color: #1466D2;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 24px;
+    text-decoration: none;
+}
+
+.post section h2 svg {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.photos {
+    margin-bottom: 80px;
+}
+.videos {
+    margin-bottom: 80px;
+}
+.threesixty {
+    margin-bottom: 80px;
+}
+.location {
+    margin-bottom: 80px;
+}
+
+@media screen and (max-width:420px){
+    .header picture { height: 200px; }
+}
+
+@media screen and (max-width:768px){
+    .header picture { height: 250px; }
+}

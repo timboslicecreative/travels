@@ -1,0 +1,10 @@
+**/.idea
+**/.git
+**/docs
+**/dist
+**/node_modules
+**/*.env*
+**/README.*
+
+### Cache
+**/.next

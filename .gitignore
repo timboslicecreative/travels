@@ -1,0 +1,12 @@
+.idea/
+.DS_Store
+node_modules/
+dist/
+.next/
+.cache/
+yarn-error.log
+docker-compose.override.yml
+TODO.md
+.graphqlconfig
+*.env
+api/packages

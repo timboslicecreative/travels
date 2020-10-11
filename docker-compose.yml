@@ -1,0 +1,60 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: mongo:4
+    command: --quiet
+    networks:
+      - xstack
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    image: ghcr.io/timboslicecreative/xstack/api
+    ports:
+      - 1337:1337
+    depends_on:
+      - db
+    networks:
+      - xstack
+
+  thumbor:
+    image: apsl/thumbor:latest
+    networks:
+      - xstack
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    image: ghcr.io/timboslicecreative/xstack/nginx
+    depends_on:
+      - thumbor
+    ports:
+      - 3001:80
+    networks:
+      - xstack
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    image: ghcr.io/timboslicecreative/xstack/web
+    ports:
+      - 3000:3000
+    depends_on:
+      - api
+      - nginx
+    networks:
+      - xstack
+
+networks:
+  xstack:
+    driver: bridge
+
+volumes:
+  db: {}
+  thumbor: {}
+  logs: {}

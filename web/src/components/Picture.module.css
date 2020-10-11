@@ -1,0 +1,16 @@
+.picture {
+    overflow: hidden;
+}
+
+.picture img {
+    transition: opacity 3s ease-out;
+    background-size: cover;
+}
+
+.loading img {
+    opacity: 0;
+}
+
+.loaded img {
+    opacity: 1;
+}
