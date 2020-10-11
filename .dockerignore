@@ -11,3 +11,5 @@
 **/.next
 **/.cache
 **/build
+**/.stignore
+**/.blimp_syncthing
