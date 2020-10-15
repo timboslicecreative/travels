@@ -15,9 +15,9 @@ module.exports = ({env}) => ({
     }
   },
   thumborImageFormats: {
-    thumborHostPrivate: process.env.THUMBOR_PRIVATE_URL,
-    thumborHostPublic: process.env.THUMBOR_PUBLIC_URL,
-    thumborSecurityKey: process.env.THUMBOR_KEY,
+    thumborHostPrivate: env('THUMBOR_PRIVATE_URL'),
+    thumborHostPublic: env('THUMBOR_PUBLIC_URL'),
+    thumborSecurityKey: env('THUMBOR_KEY'),
     // localFileHost: 'http://api:1337', // needed for local file provider
     thumbnail: {
       key: "thumbnail",

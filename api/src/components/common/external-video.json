@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_common_external_videos",
+  "info": {
+    "name": "externalVideo",
+    "icon": "film"
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "string"
+    },
+    "poster": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    }
+  }
+}

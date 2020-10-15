@@ -10,8 +10,10 @@ const renderers = {
             ext: results[2]
         };
         //return <Picture image={image} sources={imageSources} adjustments={imageAdjustments}/>;
-        return <MarkdownImage image={image} />;
+        return <MarkdownImage image={image}/>;
     }
 };
 
-export default ({source}) => (<ReactMarkdown source={source} renderers={renderers}/>)
+export default function Markdown({source}) {
+    return (<ReactMarkdown source={source} renderers={renderers}/>)
+}

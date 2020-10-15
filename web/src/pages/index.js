@@ -1,53 +1,33 @@
-import Head from 'next/head'
-import {fetchAPI} from "lib/api"
-import Grid, {Tile, orderTiles} from "components/Grid"
-import styles from "./Index.module.css"
+import Head from 'next/head';
+import PostsGrid from "components/PostsGrid";
+import {qPublishedPosts} from "lib/schema";
+import {initializeApollo} from 'lib/apollo';
+import styles from "./Index.module.css";
+import Output from "lib/output";
+const output = new Output('Pages:Index', {timestamp: true, icon: '🕸️'});
 
-const mapPostsToTiles = (posts) => posts.map(post => ({
-    key: post.id,
-    title: post.title,
-    href: `/post/[slug]`,
-    as: `/post/${post.slug}`,
-    image: post.hero
-}));
-
-export default function Index({posts}) {
-    // const {loading, error, data} = useQuery(QUERY);
-    // if (loading) return (<p>Loading</p>);
-    // if (error) return (<p>{error}</p>);
+export default function Index() {
     return (
         <div className="container">
             <Head>
-                <title>Create Next App</title>
+                <title>TimboSlice Travels</title>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
             <main>
-                <Grid tiles={mapPostsToTiles(posts)} className={styles.grid}/>
+                <PostsGrid />
             </main>
-
             <footer>
-
             </footer>
-
         </div>
     )
 };
 
 export async function getStaticProps({}) {
-    const query = `query PublishedPosts($where: JSON, $sort: String) {
-        posts(where: $where, sort: $sort) {
-            id, title, slug, 
-            hero { ext, width, height, hash, url, mime }
-        }
-    }`;
-    const variables = {
-        where: { status: 'published' },
-        sort: "date:desc"
-    };
-    const data = (await fetchAPI(query, {variables, ssr: true})) || [];
+    const apolloClient = initializeApollo();
+    const variables = {start: 0, limit: 20};
+    await apolloClient.query({query: qPublishedPosts, variables});
     return {
-        props: {posts: data.posts},
+        props: {initialApolloState: apolloClient.cache.extract()},
+        revalidate: 1,
     }
 }
-
-// export default withApollo(Home);

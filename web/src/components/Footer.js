@@ -1,7 +1,9 @@
 import styles from "./Footer.module.css";
 
-export default () => (
-    <footer>
-        © Copyright 2020 - Timboslice
-    </footer>
-)
+export default function Footer() {
+    return (
+        <footer>
+            © Copyright 2020 - Timboslice
+        </footer>
+    )
+}

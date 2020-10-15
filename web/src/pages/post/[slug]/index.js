@@ -1,15 +1,18 @@
 import dynamic from "next/dynamic";
+import {useRouter} from 'next/router'
+import Link from "next/link";
+import {initializeApollo} from "lib/apollo";
+import {qPostSlugs, qPostBySlug} from "lib/schema";
 import Picture from "components/Picture";
 import Video from "components/Video";
 import Grid from "components/Grid";
 import Markdown from "components/Markdown";
 import {MdChevronLeft, MdVideoLibrary, MdPhotoLibrary, MdPlace, Md3DRotation} from "react-icons/md";
-import {fetchAPI} from "lib/api";
-import Link from "next/link";
-import styles from "../Post.module.css";
+import styles from "./Post.module.css";
+import {useQuery} from "@apollo/client";
 
 const ThreeSixtyPhoto = dynamic(
-    () => import("../../../components/ThreeSixtyPhoto"),
+    () => import("components/ThreeSixtyPhoto"),
     {ssr: false}
 );
 
@@ -17,7 +20,7 @@ const mapPhotosToTiles = (photos, slug) => photos.map(photo => ({
     key: photo.id,
     title: photo.caption,
     href: `/post/[slug]/photo/[id]`,
-    as: `/post/${slug}/photo/${photo._id}`,
+    as: `/post/${slug}/photo/${photo.id}`,
     image: photo
 }));
 
@@ -28,12 +31,22 @@ const coverSources = [
     [1280, {width: 1280, height: 500}],
 ];
 
-export default function Post({post}) {
+export default function Post() {
+    const router = useRouter();
+    const {slug} = router.query;
+    const {loading, error, data} = useQuery(qPostBySlug, {variables: {slug}});
+
+    if (error) return "Error loading posts.";
+    if (loading) return <div>Loading</div>;
+
+    const {post} = data;
+
     const showContent = () => post && post.content && post.content !== "";
     const showPhotos = () => post && post.photos && post.photos.length > 0;
     const showVideos = () => post && post.videos && post.videos.length > 0;
     const showPhotos360 = () => post && post.photos360 && post.photos360.length > 0;
     const showLocation = () => post && post.locations && post.locations.length > 0;
+
     return (
         <article className={styles.post}>
             <div className={styles.backLink}>
@@ -74,16 +87,15 @@ export default function Post({post}) {
     )
 };
 
-
 export async function getStaticPaths() {
-    const query = `{
-        posts {
-            slug, 
-        }
-    }`;
+    const apolloClient = initializeApollo();
     const variables = {};
-    const data = (await fetchAPI(query, {variables, ssr: true})) || [];
-    const paths = data.posts.map(post => ({params: {slug: post.slug}}));
+    const response = await apolloClient.query({query: qPostSlugs, variables});
+    const paths = response.data.posts.map(post => ({
+        params: {
+            slug: post.slug
+        }
+    }));
     return {
         paths,
         fallback: false
@@ -91,22 +103,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}) {
-    const query = `query postBySlug($slug: String!){
-        postBySlug(slug: $slug) {
-            slug, title, introduction, content,             
-            hero { hash, ext, width, height}
-            photos { _id, hash, ext, width, height, caption, mime }
-            videos { _id, url, poster { hash, width, height, ext } }
-            photos360 {  _id, hash, ext, width, height, mime }
-            videos_360 {  _id, hash, ext, url }
-        }}`;
-    const variables = {
-        slug: params.slug
-    };
-    const data = (await fetchAPI(query, {variables, ssr: true})) || [];
+    const apolloClient = initializeApollo();
+    const variables = {slug: params.slug};
+    await apolloClient.query({query: qPostBySlug, variables});
     return {
-        props: {post: data.postBySlug},
+        props: {initialApolloState: apolloClient.cache.extract()},
+        revalidate: 1,
     }
 }
-
-// export default withApollo(Post);

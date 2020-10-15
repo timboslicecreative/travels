@@ -1,6 +1,6 @@
 import aframe from "aframe";
 import styles from "./ThreeSixtyPhoto.module.css"
-import {thumborUrl} from "../lib/thumbor";
+import {thurl} from "lib/thumbor";
 
 const lowQuality = {
     width: 1080,
@@ -23,9 +23,9 @@ export default class ThreeSixtyPhoto extends React.Component {
             <div className={styles.threesixty}>
                 <a-scene embedded>
                     <a-assets>
-                        {photos.map(photo => <img crossOrigin="anonymous" id={`${photo._id}_hq`} key={`${photo._id}_hq`} src={thumborUrl(photo)}/>)}
+                        {photos.map(photo => <img crossOrigin="anonymous" id={`${photo.id}_hq`} key={`${photo.id}_hq`} src={thurl.build(photo.url)}/>)}
                     </a-assets>
-                    <a-sky id="image-360-hq" src={`#${photos[0]._id}_hq`} rotation="0 -90 0"></a-sky>
+                    <a-sky id="image-360-hq" src={`#${photos[0].id}_hq`} rotation="0 -90 0"></a-sky>
                     <a-camera look-controls-enabled reverse-mouse-drag position="0 0 0" id="camera-id" fov="60" ></a-camera>
                 </a-scene>
             </div>

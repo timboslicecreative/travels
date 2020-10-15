@@ -1,9 +1,7 @@
 module.exports = {
-    webpackDevMiddleware: config => {
-        config.watchOptions = {
-            poll: 800,
-            aggregateTimeout: 300,
-        };
-        return config
+    env: {
+        PUBLIC_GRAPHQL_API: process.env.PUBLIC_GRAPHQL_API,
+        THUMBOR_KEY: process.env.THUMBOR_KEY,
+        THUMBOR_URL: process.env.THUMBOR_URL,
     },
 };

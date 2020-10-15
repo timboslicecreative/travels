@@ -4,8 +4,8 @@ import Picture, {imageOrientation} from "./Picture"
 
 
 const orientationAdjustments = [
-    {width: 270}, // 0-Portrait
-    {width: 540}, // 1-Landscape
+    {width: 270, height: 270 * 1.5}, // 0-Portrait
+    {width: 540, height: 540 * 0.75}, // 1-Landscape
     {width: 1080}, // 2-Panorama
 ];
 
@@ -18,15 +18,15 @@ const orientationStyles = [
 const orientationSources = [
     // Portrait
     [
-        [420, {width: 210}],
-        [768, {width: 192}],
-        [1080, {width: 270}],
+        [420, {width: 210, height: 210 * 1.5}],
+        [768, {width: 192, height: 192 * 1.5}],
+        [1080, {width: 270, height: 270 * 1.5}],
     ],
     // Landscape
     [
-        [420, {width: 420}],
-        [768, {width: 384}],
-        [1080, {width: 540}],
+        [420, {width: 420, height: 420 * .75}],
+        [768, {width: 384, height: 384 * .75}],
+        [1080, {width: 540, height: 540 * .75}],
     ],
     // Panorama
     [
@@ -55,12 +55,14 @@ export const orderTiles = (tiles) => {
 
     const find = (from, size) => {
         for (; from < count; from++) {
+            if (!tiles[from].image) continue;
             if ((weight = imageWeight(tiles[from].image)) <= size) return from;
         }
         return null
     };
 
     for (; i < count; i++) {
+        if (!tiles[i].image) continue;
         weight = imageWeight(tiles[i].image);
         if (rowLength + weight > rowMax && (found = find(i + 1, rowMax - rowLength))) {
             tiles.splice(i, 0, tiles.splice(found, 1)[0]);
@@ -72,12 +74,13 @@ export const orderTiles = (tiles) => {
     return tiles
 };
 
-export default function Grid({tiles, className}) {
+export default function Grid({tiles, className, areMore, loadMore}) {
     return (
         <div className={`${styles.grid} ${className}`}>
             {orderTiles(tiles).map((tile, index) =>
                 <Tile title={tile.title} href={tile.href} as={tile.as} image={tile.image} key={tile.key || index}/>
             )}
+            { areMore ? <button type={"button"} onClick={loadMore}>Load More</button> : ''}
         </div>
     )
 };

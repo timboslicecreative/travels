@@ -2,39 +2,77 @@
   "kind": "collectionType",
   "collectionName": "posts",
   "info": {
-    "name": "Post"
+    "name": "Post",
+    "description": ""
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": true
   },
   "attributes": {
     "title": {
       "type": "string"
     },
-    "slug": {
-      "type": "string"
+    "introduction": {
+      "type": "text"
     },
     "content": {
       "type": "richtext"
-    },
-    "status": {
-      "type": "enumeration",
-      "enum": [
-        "draft",
-        "published",
-        "archived"
-      ],
-      "default": "draft"
-    },
-    "date": {
-      "type": "date"
     },
     "hero": {
       "model": "file",
       "via": "related",
       "allowedTypes": [
         "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "photos": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "photos360": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "videos360": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "slug": {
+      "type": "string"
+    },
+    "date": {
+      "type": "date",
+      "required": false
+    },
+    "videosExternal": {
+      "type": "component",
+      "repeatable": true,
+      "component": "common.external-video"
+    },
+    "videos": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "videos"
       ],
       "plugin": "upload",
       "required": false

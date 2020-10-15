@@ -22,6 +22,8 @@ services:
 
   thumbor:
     image: apsl/thumbor:latest
+    ports:
+      - "8000:8000"
     networks:
       - travels
 
@@ -39,8 +41,8 @@ services:
 
   web:
     build:
-      context: ./web
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./web/Dockerfile
     image: ghcr.io/timboslicecreative/travels/web
     ports:
       - 3000:3000

@@ -1,8 +1,8 @@
 import styles from "./Post.module.css";
 import withApollo from "../lib/withApollo";
-import {thumborUrl} from "../lib/thumbor";
+import {thurl} from "lib/thumbor";
 import Picture from "./Picture"
-import Thumbnail from "./Thumbnail"
+import Thumbnail from "./Thumbnail";
 import {MdArrowForward, MdArrowBack} from "react-icons/md";
 
 const backgroundAdjustments = {
@@ -46,9 +46,9 @@ const isLandscape = (image) => image.width > image.height;
 const orientation = (image) => isLandscape(image) ? styles.photoLandscape : styles.photoPortrait;
 const coverAdjustments = (image) => isLandscape(image) ? coverLandscape : coverPortrait;
 
-const Post = ({post}) => {
+export default function Post ({post}) {
     const backgroundStyle = {
-        backgroundImage: `url('${thumborUrl(post.hero, backgroundAdjustments)}')`
+        backgroundImage: `url('${thurl.build(post.hero.url, backgroundAdjustments)}')`
     };
     return (
         <div className={styles.post}>
@@ -77,6 +77,5 @@ const Post = ({post}) => {
     )
 };
 
-export default withApollo(Post);
 
 

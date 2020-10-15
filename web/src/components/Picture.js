@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {thurl} from "../lib/thumbor";
+import {thurl} from "lib/thumbor";
 import styles from "./Picture.module.css";
 
 export const PORTRAIT = 0;
@@ -24,15 +24,15 @@ const defaultSources = [
 ];
 
 export default function Picture({className, image, adjustments, sources}) {
-    // const [loaded, setLoaded] = useState(false);
-    // const loadingStyle = () => loaded ? styles.loaded : styles.loading;
+    const [loaded, setLoaded] = useState(false);
+    const loadingStyle = () => loaded ? styles.loaded : styles.loading;
     const genSources = () => (sources || defaultSources).map((sa, i) =>
-        <source media={`(max-width:${sa[0]}px)`} srcSet={thurl.build(image, sa[1])} type={image.mime} key={i}/>
+        <source media={`(max-width:${sa[0]}px)`} srcSet={thurl.build(image.url, sa[1])} type={image.mime} key={i}/>
     );
     return (
         <picture className={`${styles.picture} ${className}`}>
             {genSources()}
-            <img src={thurl.build(image, adjustments)} />
+            <img src={thurl.build(image.url, adjustments)}/>
         </picture>
     )
 }

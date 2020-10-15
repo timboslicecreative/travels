@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {thumborUrl} from "../lib/thumbor";
+import {thurl} from "lib/thumbor";
 import Picture, {imageOrientation} from "./Picture";
 import styles from "./MarkdownImage.module.css";
 
@@ -49,6 +49,6 @@ export default function MarkdownImage({image}) {
         />
         );
     return (
-        <img src={thumborUrl(image, {width: 10, filters:{quality: [30]}})} onLoad={onImgLoad} className={styles.image}/>
+        <img src={thurl.build(image.url, {width: 10, filters:{quality: [30]}})} onLoad={onImgLoad} className={styles.image}/>
     )
 }
